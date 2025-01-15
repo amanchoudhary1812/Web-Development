@@ -1,0 +1,154 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+header {
+    background-color: #0078D4;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    z-index: 1;
+}
+
+nav {
+    background-color: #333;
+    padding: 20px;
+    width: 200px;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-top: 80px; /* Adjust for header height */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    margin: 10px 0;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 10px;
+    width: 100%;
+    text-align: left;
+}
+
+nav a:hover {
+    color: #0078D4;
+    background-color: #444;
+    border-radius: 5px;
+}
+
+main {
+    margin-left: 220px;
+    padding: 20px;
+    padding-top: 100px; /* Adjust for header height */
+}
+
+/* Section Styles */
+section {
+    max-width: 900px;
+    margin: 20px auto;
+    background: white;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+h1, h2, h3 {
+    font-family: 'Georgia', serif;
+}
+
+/* About Section */
+.about-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.about-section img {
+    display: block;
+    max-width: 200px;
+    height: auto;
+    margin-bottom: 20px;
+    border-radius: 8px;
+}
+
+.about-section h3, .about-section p {
+    text-align: center;
+    line-height: 1.6;
+}
+
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+th, td {
+    text-align: center;
+    padding: 12px;
+    font-size: 16px;
+}
+
+th {
+    background-color: #0078D4;
+    color: white;
+    font-weight: bold;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Project Styles */
+.project {
+    margin-bottom: 20px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fafafa;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.project h3 {
+    color: #0078D4;
+}
+
+.project:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #0078D4;
+    color: white;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
