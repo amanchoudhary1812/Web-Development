@@ -95,20 +95,22 @@ button:hover {
 }
 
 #timer {
-    display: none;
-    text-align: left;
-    height: 0.5rem;
     width: 100%;
-    background-color: rgb(250, 250, 250);
+    height: 10px;
+    background-color: #ddd; /* Light gray background for the timer bar */
+    position: relative;
     overflow: hidden;
-    border-radius: 1rem;
+    border-radius: 5px; /* Rounded corners */
+    margin: 20px 0;
 }
 
 #progress {
-    transition: ease;
     height: 100%;
-    background-color: rgba(255, 0, 0, 0.5);
+    width: 100%;
+    background-color: #4caf50; /* Green color for the progress bar */
+    transition: width 1s linear; /* Smooth transition */
 }
+
 
 #message {
     font-size: 1.5rem;
