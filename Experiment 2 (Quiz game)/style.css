@@ -9,16 +9,21 @@
 }
 
 body {
-    background-color: rgb(73, 230, 236);
+    /* background-color: rgb(73, 230, 236); */
     width: 100%;
     height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    background-image: url('4CND.gif'); /* Path to your GIF */
+    background-size: cover; /* Scale the GIF to cover the entire viewport */
+    background-repeat: no-repeat; /* Prevent repeating the GIF */
+    background-position: center; /* Center the GIF */
+    background-attachment: fixed; /* Keep the GIF fixed during scrolling */
 }
 
 .container {
-    background-color: aliceblue;
+    background-color: rgb(69, 130, 183);
     transition: 1s ease;
     width: 80%;
     max-width: 40rem;
@@ -29,7 +34,7 @@ body {
 }
 
 .question-card {
-    background-color: aquamarine;
+    background-color: rgb(41, 185, 173);
     border-radius: 1rem;
     margin: 2rem auto;
     padding: 2rem 0;
@@ -82,7 +87,7 @@ button:hover {
     font-size: 2rem;
     font-weight: 600;
     color: rgb(255, 255, 255);
-    background-color: rgb(64, 107, 226);
+    background-color: rgb(53, 90, 200);
 }
 
 #in-game,
