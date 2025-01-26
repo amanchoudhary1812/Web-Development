@@ -135,7 +135,7 @@ label {
 }
 button {
   background-color: transparent;
-  color: wheat;
+  color: rgb(218, 196, 153);
   box-shadow: #d8c9ae;
   font-size: 3vh;
 }
