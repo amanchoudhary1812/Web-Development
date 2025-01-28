@@ -73,13 +73,22 @@ function nextQuestion() {
 
 // Generate answer options
 function getOptions() {
-    ansOpt = Math.floor(Math.random() * 4);
-    buttons[ansOpt].innerHTML = answer;
+    const options = [
+        answer,
+        answer + 3,
+        answer + 1,
+        answer - 3
+    ];
 
+    // Shuffle the options randomly
+    for (let i = options.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [options[i], options[j]] = [options[j], options[i]];
+    }
+
+    // Assign shuffled options to buttons
     for (let i = 0; i < 4; i++) {
-        if (i !== ansOpt) {
-            buttons[i].innerHTML = Math.floor(Math.random() * 200) - 50;
-        }
+        buttons[i].innerHTML = options[i];
         buttons[i].style.color = "#000";
         buttons[i].style.backgroundColor = "rgba(0, 0, 0, 0.1)";
     }
