@@ -120,3 +120,22 @@ button:hover {
 #message {
     font-size: 1.5rem;
 }
+
+
+/* Add the Quit button styling at the bottom of your style.css */
+#quit-btn {
+    transition: 0.3s;
+    cursor: pointer;
+    font-size: 1.5rem;
+    border-radius: 1rem;
+    text-align: center;
+    background-color: rgba(255, 0, 0, 0.2); /* Red background for quit button */
+    margin: 1rem auto;
+    padding: 1rem 2rem;
+    font-weight: 600;
+    color: rgb(255, 255, 255);
+}
+
+#quit-btn:hover {
+    background-color: rgba(255, 0, 0, 0.5); /* Darker red on hover */
+}

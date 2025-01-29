@@ -149,3 +149,20 @@ for (let i = 0; i < buttons.length; i++) {
         setTimeout(nextQuestion, 2000); // Delay for 2 seconds
     });
 }
+
+
+// Elements
+let quitBtn = document.getElementById("quit-btn");
+
+// Quit game function
+function quitGame() {
+    clearInterval(t); // Stop any active timers
+    gameBox.style.display = "none"; // Hide the in-game section
+    startBox.style.display = "block"; // Show the start screen
+    qNo.innerHTML = "0"; // Reset the question number
+    score.innerHTML = "0"; // Reset the score
+    progress.style.width = "100%"; // Reset progress bar
+}
+
+// Attach the quit button functionality
+quitBtn.addEventListener('click', quitGame);
