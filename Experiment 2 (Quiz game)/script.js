@@ -1,4 +1,5 @@
 let n1, n2, opSelector, ansOpt, answer, t;
+let difficultyLevel = 1;  // Difficulty starts at level 1
 
 // Elements
 let qNo = document.getElementById("Qno");
@@ -23,6 +24,7 @@ function restart() {
     startBox.style.display = "none";
     endBox.style.display = "none";
     progress.style.width = "100%";
+    difficultyLevel = 1; // Reset difficulty level
 }
 
 // When the game is finished
@@ -42,26 +44,23 @@ function nextQuestion() {
     progress.style.width = "100%"; // Reset progress bar
     timed(); // Start a new timer
 
-    if (qNo.innerText == "10") { // End the game after 10 questions
-        whenFinished();
-        return;
-    }
+    n1 = Math.floor(Math.random() * (difficultyLevel * 100));  // Increase number range with difficulty
+    n2 = Math.floor(Math.random() * (difficultyLevel * 100));
 
-    n1 = Math.floor(Math.random() * 100);
-    n2 = Math.floor(Math.random() * 100);
     opSelector = operator[Math.floor(Math.random() * 4)];
 
-    if (opSelector == "/") {
+    // Increase complexity with difficulty level (e.g., higher numbers for division and multiplication)
+    if (opSelector === "/") {
         while (n1 % n2 !== 0 || n1 === 0 || n2 === 0 || n2 === 1 || n1 === n2) {
-            n1 = Math.floor(Math.random() * 100);
-            n2 = Math.floor(Math.random() * 100);
+            n1 = Math.floor(Math.random() * (difficultyLevel * 100));
+            n2 = Math.floor(Math.random() * (difficultyLevel * 100));
         }
     }
 
-    if (opSelector == "*") {
-        while (n1 * n2 > 1000) {
-            n1 = Math.floor(Math.random() * 50);
-            n2 = Math.floor(Math.random() * 50);
+    if (opSelector === "*") {
+        while (n1 * n2 > difficultyLevel * 1000) {
+            n1 = Math.floor(Math.random() * (difficultyLevel * 50));
+            n2 = Math.floor(Math.random() * (difficultyLevel * 50));
         }
     }
 
@@ -75,9 +74,9 @@ function nextQuestion() {
 function getOptions() {
     const options = [
         answer,
-        answer + 3,
-        answer + 1,
-        answer - 3
+        answer + Math.floor(Math.random() * 5),
+        answer + Math.floor(Math.random() * 3),
+        answer - Math.floor(Math.random() * 5)
     ];
 
     // Shuffle the options randomly
@@ -133,6 +132,21 @@ function timed() {
     }, 1000); // Update every second
 }
 
+// Quit game function
+function quitGame() {
+    clearInterval(t); // Stop any active timers
+    gameBox.style.display = "none"; // Hide the in-game section
+    startBox.style.display = "block"; // Show the start screen
+    qNo.innerHTML = "0"; // Reset the question number
+    score.innerHTML = "0"; // Reset the score
+    progress.style.width = "100%"; // Reset progress bar
+    difficultyLevel = 1; // Reset difficulty
+}
+
+// Attach the quit button functionality
+let quitBtn = document.getElementById("quit-btn");
+quitBtn.addEventListener('click', quitGame);
+
 // Button click events
 for (let i = 0; i < buttons.length; i++) {
     buttons[i].addEventListener('click', () => {
@@ -146,23 +160,11 @@ for (let i = 0; i < buttons.length; i++) {
             buttons[i].style.color = "#fff";
         }
 
+        // Increase difficulty every 3 questions (or adjust based on your preference)
+        if (parseInt(qNo.innerHTML) % 3 === 0) {
+            difficultyLevel++;
+        }
+
         setTimeout(nextQuestion, 2000); // Delay for 2 seconds
     });
 }
-
-
-// Elements
-let quitBtn = document.getElementById("quit-btn");
-
-// Quit game function
-function quitGame() {
-    clearInterval(t); // Stop any active timers
-    gameBox.style.display = "none"; // Hide the in-game section
-    startBox.style.display = "block"; // Show the start screen
-    qNo.innerHTML = "0"; // Reset the question number
-    score.innerHTML = "0"; // Reset the score
-    progress.style.width = "100%"; // Reset progress bar
-}
-
-// Attach the quit button functionality
-quitBtn.addEventListener('click', quitGame);
