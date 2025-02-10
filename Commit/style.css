@@ -79,7 +79,7 @@ h1 {
   width: 120px;
 }
 .timer {
-  color: red;
+  color: rgb(254, 0, 0);
   margin-left: 40%;
   font-size: 5vh;
 }
