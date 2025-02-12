@@ -1,0 +1,125 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Quiz</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            text-align: center;
+        }
+        h1 { font-size: 2em; color: #333; margin-bottom: 20px; }
+        input, button {
+            padding: 10px; font-size: 1em; margin: 10px 0; border-radius: 5px;
+        }
+        input { width: calc(100% - 20px); border: 1px solid #ddd; }
+        input:focus { border-color: #007bff; }
+        .start-btn { background-color: blue; color: white; }
+        .submit-btn { background-color: green; color: white; }
+        .quit-btn { background-color: red; color: white; }
+        button { cursor: pointer; border: none; transition: background-color 0.3s; }
+        button:hover { opacity: 0.8; }
+        .question { font-size: 1.5em; margin: 20px 0; }
+        .timer { font-size: 1.2em; color: #ff4d4d; }
+        .result { font-size: 1.2em; color: #333; font-weight: bold; margin-top: 20px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Math Quiz</h1>
+        <div id="user-info">
+            <input type="text" id="username" placeholder="Enter your name" />
+            <input type="text" id="userid" placeholder="Enter your  SAP.ID" />
+            <button class="start-btn" onclick="startQuiz()">Start Quiz</button>
+        </div>
+        <div id="quiz" style="display: none;">
+            <p class="question" id="question"></p>
+            <input type="text" id="answer" placeholder="Enter your answer" />
+            <div>
+                <button class="submit-btn" onclick="submitAnswer()">Submit</button>
+                <button class="quit-btn" onclick="quitQuiz()">Quit</button>
+            </div>
+            <p class="timer">Time left: <span id="time"></span>s</p>
+        </div>
+        <div class="result" id="result" style="display: none;"></div>
+    </div>
+    <script>
+        const operators = ['+', '-', '*', '/'], complexOps = ['+', '-', '*', '/', '**'];
+        let username = "", userid = "", timer, timeLeft, correctAnswer, score = 0, total = 0, difficulty = 1;
+
+        const startQuiz = () => {
+            username = document.getElementById('username').value;
+            userid = document.getElementById('userid').value;
+            if (!username || !userid) return alert('Please enter name and ID!');
+            toggleView('user-info', 'quiz');
+            startTimer(); generateQuestion();
+        };
+
+        const generateQuestion = () => {
+            let terms = difficulty + 1, expression = '', ops = difficulty > 5 ? complexOps : operators;
+            for (let i = 0; i < terms; i++) {
+                expression += Math.floor(Math.random() * (difficulty * 10)) + 1;
+                if (i < terms - 1) expression += ` ${ops[Math.floor(Math.random() * ops.length)]} `;
+            }
+            try {
+                correctAnswer = eval(expression).toFixed(2);
+            } catch (error) {
+                return generateQuestion();
+            }
+            document.getElementById('question').textContent = `${expression} = ?`;
+        };
+
+        const startTimer = () => {
+            timeLeft = Math.max(15 - difficulty, 5);
+            document.getElementById('time').textContent = timeLeft;
+            clearInterval(timer);
+            timer = setInterval(() => {
+                document.getElementById('time').textContent = --timeLeft;
+                if (timeLeft <= 0) quitQuiz();
+            }, 1000);
+        };
+
+        const submitAnswer = () => {
+            const userAnswer = parseFloat(document.getElementById('answer').value);
+            if (userAnswer !== parseFloat(correctAnswer)) {
+                quitQuiz();
+                return;
+            }
+            score++;
+            total++;
+            if (total % 5 === 0) difficulty++; // YAHA 5 QUESTIONS KE BAAD DIFFICULTY INCREASE HO JAAIGIA
+            clearInterval(timer);
+            document.getElementById('answer').value = '';
+            startTimer(); generateQuestion();
+        };
+
+        const quitQuiz = () => {
+            clearInterval(timer);
+            toggleView('quiz', 'result');
+            document.getElementById('result').innerHTML = `
+                <h2>Quiz Result</h2>
+                <p><strong>Name:</strong> ${username}</p>
+                <p><strong>ID:</strong> ${userid}</p>
+                <p><strong>Score:</strong> ${score}/${total}</p>`;
+        };
+
+        const toggleView = (hide, show) => {
+            document.getElementById(hide).style.display = 'none';
+            document.getElementById(show).style.display = 'block';
+        };
+    </script>
+</body>
+</html>
