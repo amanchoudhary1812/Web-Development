@@ -112,7 +112,7 @@ button:hover {
 #progress {
     height: 100%;
     width: 100%;
-    background-color: #4caf50; /* Green color for the progress bar */
+    background-color: #4bb14e; /* Green color for the progress bar */
     transition: width 1s linear; /* Smooth transition */
 }
 
