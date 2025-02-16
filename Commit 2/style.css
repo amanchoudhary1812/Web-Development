@@ -102,7 +102,7 @@ button:hover {
 #timer {
     width: 100%;
     height: 10px;
-    background-color: #ddd; /* Light gray background for the timer bar */
+    background-color: #dddddd; /* Light gray background for the timer bar */
     position: relative;
     overflow: hidden;
     border-radius: 5px; /* Rounded corners */
