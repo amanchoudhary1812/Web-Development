@@ -129,7 +129,7 @@ button:hover {
     font-size: 1.5rem;
     border-radius: 1rem;
     text-align: center;
-    background-color: rgba(255, 0, 0, 0.2); /* Red background for quit button */
+    background-color: rgba(248, 4, 4, 0.2); /* Red background for quit button */
     margin: 1rem auto;
     padding: 1rem 2rem;
     font-weight: 600;
