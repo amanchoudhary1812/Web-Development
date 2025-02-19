@@ -99,7 +99,7 @@ nav ul{
     background-color: #911d91;
     transition: width 1s ease-in-out;
 }
-
+/* 
 @media screen and (max-width: 950px)
 {
     .gameContainer{
@@ -115,4 +115,4 @@ nav ul{
         grid-template-rows: repeat(3, 20vw);
         grid-template-columns: repeat(3, 20vw);
     }
-}
+} */
