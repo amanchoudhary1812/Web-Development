@@ -1,0 +1,151 @@
+<html>
+<head>
+    <title>Tic Tac Toe</title>
+</head>
+<body>
+    <div class="game-container">
+        <div class="select-box">
+            <h2>Choose Your Player</h2>
+            <button id="playerX">Play as X</button>
+            <button id="playerO">Play as O</button>
+        </div>
+        <div class="play-board hidden">
+            <h2 id="turnIndicator">X's Turn</h2>
+            <div class="board">
+                <div class="cell" data-index="0"></div>
+                <div class="cell" data-index="1"></div>
+                <div class="cell" data-index="2"></div>
+                <div class="cell" data-index="3"></div>
+                <div class="cell" data-index="4"></div>
+                <div class="cell" data-index="5"></div>
+                <div class="cell" data-index="6"></div>
+                <div class="cell" data-index="7"></div>
+                <div class="cell" data-index="8"></div>
+            </div>
+            <button id="reset">Reset Game</button>
+        </div>
+        <div class="result-box hidden">
+            <h2 id="resultText"></h2>
+            <button id="playAgain">Play Again</button>
+        </div>
+    </div>
+</body>
+<style>
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: #f4f4f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+.game-container {
+    text-align: center;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+.select-box button, #reset, #playAgain {
+    background: #5372F0;
+    color: white;
+    border: none;
+    padding: 10px;
+    margin: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-gap: 5px;
+    margin: 20px auto;
+}
+.cell {
+    width: 100px;
+    height: 100px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2em;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+.hidden {
+    display: none;
+}
+</style>
+
+<script>
+// Selecting important parts of the game
+const selectBox = document.querySelector(".select-box");
+const playBoard = document.querySelector(".play-board");
+const resultBox = document.querySelector(".result-box");
+const turnIndicator = document.getElementById("turnIndicator");
+const cells = document.querySelectorAll(".cell");
+const resetButton = document.getElementById("reset");
+const playAgainButton = document.getElementById("playAgain");
+const resultText = document.getElementById("resultText");
+let currentPlayer = "X";// This decides which player is currently playing
+let board = ["", "", "", "", "", "", "", "", ""];// An array to store the state of the game board
+
+// Player selection(=> arrow function define it to short & clear way)
+const playerXBtn = document.getElementById("playerX");// allow the player to choose x button
+const playerOBtn = document.getElementById("playerO");// here y button
+playerXBtn.addEventListener("click", () => startGame("X"));
+playerOBtn.addEventListener("click", () => startGame("O"));
+
+function startGame(player) {
+    currentPlayer = player;
+    turnIndicator.textContent = `${currentPlayer}'s Turn`;//dynamically inserts the value of  currentPlayer into the string
+    selectBox.classList.add("hidden");
+    playBoard.classList.remove("hidden");
+}
+
+// Handle cell clicks
+cells.forEach(cell => { //add a click event listener to each cell
+    cell.addEventListener("click", () => { //Check if the cell is empty
+        if (!cell.textContent) {
+            cell.textContent = currentPlayer;
+            board[cell.dataset.index] = currentPlayer;
+            if (checkWinner()) {
+                endGame(`${currentPlayer} Wins!`);
+            } else if (!board.includes("")) {
+                endGame("It's a Draw!");
+            } else {
+                currentPlayer = currentPlayer === "X" ? "O" : "X";
+                turnIndicator.textContent = `${currentPlayer}'s Turn`;
+            }
+        }
+    });
+});
+
+// Check winning combinations
+function checkWinner() { // Define all possible winning patterns (rows, columns, diagonals)
+    const winPatterns = [
+        [0, 1, 2], [3, 4, 5], [6, 7, 8],
+        [0, 3, 6], [1, 4, 7], [2, 5, 8],
+        [0, 4, 8], [2, 4, 6]
+    ];
+    return winPatterns.some(pattern => 
+        pattern.every(index => board[index] === currentPlayer)// this check the winning pattern occupied by curr player
+    );
+}
+
+// End game function
+function endGame(message) {
+    resultText.textContent = message;
+    resultBox.classList.remove("hidden");
+    playBoard.classList.add("hidden");
+}
+
+// Reset the game
+resetButton.addEventListener("click", () => location.reload());
+playAgainButton.addEventListener("click", () => location.reload());
+</script>
+</html>

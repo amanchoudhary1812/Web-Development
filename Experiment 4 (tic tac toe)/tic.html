@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic Tac Toe</title>
+    <style>
+        /* Styling for the body */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #2c3e50;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            color: #ecf0f1;
+        }
+        
+        /* Container for the game */
+        .game-container {
+            text-align: center;
+            background: #34495e;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* Styling for buttons */
+        .select-box button, #reset, #playAgain {
+            background: #e74c3c;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            margin: 10px;
+            cursor: pointer;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+        
+        /* Button hover effect */
+        .select-box button:hover, #reset:hover, #playAgain:hover {
+            background: #c0392b;
+        }
+        
+        /* Styling for the Tic-Tac-Toe board */
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-gap: 8px;
+            margin: 20px auto;
+        }
+        
+        /* Styling for each cell */
+        .cell {
+            width: 100px;
+            height: 100px;
+            background: #ecf0f1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5em;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 8px;
+            box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.2);
+            color: #2c3e50;
+            transition: 0.3s;
+        }
+        
+        /* Cell hover effect */
+        .cell:hover {
+            background: #bdc3c7;
+        }
+        
+        /* Hide elements when necessary */
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <!-- Player selection menu -->
+        <!-- Player selection box -->
+<div class="select-box">  
+    <h2>Choose Your Player</h2>  <!-- Player ko choose karne ka message -->
+    <button id="playerX">Play as X</button>  <!-- "X" select karne ka button -->
+    <button id="playerO">Play as O</button>  <!-- "O" select karne ka button -->
+</div>
+
+<!-- Main game board -->
+<div class="play-board hidden">  <!-- Game board (hidden hoga jab tak game start na ho) -->
+    <h2 id="turnIndicator">X's Turn</h2>  <!-- Batayega ki ab kis player ki turn hai -->
+    <div class="board">  <!-- Game ka actual board jisme 3x3 grid hai -->
+        <div class="cell" data-index="0"></div>  <!-- 1st cell (index 0) -->
+        <div class="cell" data-index="1"></div>  <!-- 2nd cell (index 1) -->
+        <div class="cell" data-index="2"></div>  <!-- 3rd cell (index 2) -->
+        <div class="cell" data-index="3"></div>  <!-- 4th cell (index 3) -->
+        <div class="cell" data-index="4"></div>  <!-- 5th cell (index 4) -->
+        <div class="cell" data-index="5"></div>  <!-- 6th cell (index 5) -->
+        <div class="cell" data-index="6"></div>  <!-- 7th cell (index 6) -->
+        <div class="cell" data-index="7"></div>  <!-- 8th cell (index 7) -->
+        <div class="cell" data-index="8"></div>  <!-- 9th cell (index 8) -->
+    </div>
+    <button id="reset">Reset Game</button>  <!-- Game reset karne ka button -->
+</div>
+
+        
+        <!-- Result display box -->
+        <div class="result-box hidden">
+            <h2 id="resultText"></h2>
+            <button id="playAgain">Play Again</button>
+        </div>
+    </div>
+    
+    <script>
+        // UI elements ko select kar rahe hain
+        // UI elements ko select kar rahe hain
+const selectBox = document.querySelector(".select-box");  // Player X ya O choose karne wala box
+const playBoard = document.querySelector(".play-board");  // Game board jisme tic-tac-toe khelenge
+const resultBox = document.querySelector(".result-box");  // Result dikhane wala box (Win/Draw)
+const turnIndicator = document.getElementById("turnIndicator");  // Batayega ki kis player ki turn hai
+const cells = document.querySelectorAll(".cell");  // Sare game cells ko select kar raha hai
+const resetButton = document.getElementById("reset");  // Game reset karne ka button
+const playAgainButton = document.getElementById("playAgain");  // Game dubara start karne ka button
+const resultText = document.getElementById("resultText");  // Game ka result dikhane ke liye
+
+// Game ka state store karne wale variables
+let currentPlayer = "X";  // Ye track karega ki abhi kaunsa player khel raha hai (X ya O)
+let board = ["", "", "", "", "", "", "", "", ""];  // Game board ko array ke form me store kar raha hai (9 empty spaces)
+
+// Player selection buttons ko select kar rahe hain
+const playerXBtn = document.getElementById("playerX");  // "X" choose karne ka button
+const playerOBtn = document.getElementById("playerO");  // "O" choose karne ka button
+
+// Jab player X ya O choose karega, game start ho jayega
+playerXBtn.addEventListener("click", () => startGame("X"));  // Agar "X" choose kare toh game start "X" se hoga
+playerOBtn.addEventListener("click", () => startGame("O"));  // Agar "O" choose kare toh game start "O" se hoga
+
+// Start game function - ye game start karega
+function startGame(player) {  
+    currentPlayer = player;  // Pehla player set kar raha hai (X ya O)
+    turnIndicator.textContent = `${currentPlayer}'s Turn`;  // UI me dikhayega ki kiski turn hai
+    selectBox.classList.add("hidden");  // Player select karne wala box hide kar diya
+    playBoard.classList.remove("hidden");  // Game board show kar diya taaki game start ho sake
+}
+
+
+        // Handle cell clicks
+        cells.forEach(cell => {  // Har ek cell pe loop chala rahe hain
+    cell.addEventListener("click", () => {  // Har cell ke liye click event add kar rahe hain
+        if (!cell.textContent) {  // Check kar rahe hain ki cell khaali hai ya nahi
+            cell.textContent = currentPlayer;  // Agar khaali hai toh usme current player ka symbol daal rahe hain (X ya O)
+            board[cell.dataset.index] = currentPlayer;  // Game board array me bhi update kar rahe hain
+            
+            if (checkWinner()) {  // Check kar rahe hain ki current player jeet gaya kya?
+                endGame(`${currentPlayer} Wins!`);  // Agar jeet gaya toh game khatam kar ke winner dikhayenge
+            } else if (!board.includes("")) {  // Check kar rahe hain ki board full ho gaya kya? (Draw case)
+                endGame("It's a Draw!");  // Agar board full ho gaya aur koi nahi jeeta toh Draw dikhayenge
+            } else {  
+                currentPlayer = currentPlayer === "X" ? "O" : "X";  // Player switch kar rahe hain (X se O ya O se X)
+                turnIndicator.textContent = `${currentPlayer}'s Turn`;  // UI me bata rahe hain ab kiski turn hai
+            }
+        }
+    });
+});
+
+
+        // Check if there's a winner
+        // Winner check karne wala function
+function checkWinner() {
+    // Sare possible winning patterns define kar rahe hain (rows, columns, aur diagonals)
+    const winPatterns = [
+        [0, 1, 2], [3, 4, 5], [6, 7, 8],  // Rows (Tic-Tac-Toe ki teeno horizontal lines)
+        [0, 3, 6], [1, 4, 7], [2, 5, 8],  // Columns (Tic-Tac-Toe ki teeno vertical lines)
+        [0, 4, 8], [2, 4, 6]              // Diagonals (Dono diagonal lines)
+    ];
+
+    // Check kar rahe hain ki koi ek pattern poora match ho raha hai ya nahi
+    return winPatterns.some(pattern =>  // Har winning pattern ko check kar rahe hain
+        pattern.every(index => board[index] === currentPlayer)  // Dekh rahe hain ki pattern ke sare positions same player ke hain ya nahi
+    );
+}
+
+// Game end karne ka function
+function endGame(message) {  
+    resultText.textContent = message;  // Game ka result message display karega (jaise "X Wins!" ya "It's a Draw!")
+    resultBox.classList.remove("hidden");  // Result box ko show karne ke liye "hidden" class hata rahe hain
+    playBoard.classList.add("hidden");  // Game board ko hide kar rahe hain, kyunki game khatam ho chuka hai
+}
+
+// Reset karne ka event listener (game dubara shuru karne ke liye)
+resetButton.addEventListener("click", () => location.reload());  // Jab reset button dabayenge, toh page reload hoke game reset ho jayega
+playAgainButton.addEventListener("click", () => location.reload());  // Jab play again button dabayenge, toh page reload hoke naya game start ho jayega
+
+
+    </script>
+</body>
+</html>

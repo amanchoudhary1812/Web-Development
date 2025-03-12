@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student CRUD</title>
+</head>
+<body>
+  <h1>Student List</h1>
+  <button onclick="location.href='/add'">Add Student</button>
+  <ul>
+    <% students.forEach(student => { %>
+      <li>
+        <%= student.name %> - <%= student.age %> - <%= student.course %>
+        <button onclick="location.href='/students/edit/<%= student._id %>'">Edit</button>
+        <button onclick="location.href='/students/delete/<%= student._id %>'">Delete</button>
+      </li>
+    <% }); %>
+  </ul>
+</body>
+</html>
