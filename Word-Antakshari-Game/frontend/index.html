@@ -1,0 +1,33 @@
+<!DOCTYPE html> <!-- Yeh HTML5 document type declare karta hai -->
+<html>
+<head>
+  <title>Word Antakshari Game</title> <!-- Yeh webpage ka title set karta hai -->
+  <link rel="stylesheet" type="text/css" href="css/styles.css"> <!-- External CSS file ko link karta hai -->
+</head>
+<body>
+  <div class="container"> <!-- Ek div jo pura content wrap karega -->
+    <h1>WordZZ </h1> <!-- Game ka title display karega -->
+
+    <div id="game"> <!-- Yeh game ke input aur buttons ke liye ek section hai -->
+      <p id="startWord">Click Start to Begin!</p> <!-- Game shuru hone se pehle yeh message dikhega -->
+
+      <input type="text" id="userWord" placeholder="Enter your word..." /> 
+      <!-- User yahan apna word enter karega -->
+
+      <button onclick="validateWord()">Submit</button> 
+      <!-- Yeh button user ke word ko validate karega -->
+
+      <button onclick="startGame()">Start Game</button> 
+      <!-- Yeh button game ko start karega -->
+    </div>
+
+    <div id="status"></div> <!-- Yeh game ka status ya messages display karega -->
+
+    <h2> Score 🏆</h2> <!-- Leaderboard ka heading hai -->
+    <ul id="leaderboard"></ul> <!-- Yeh leaderboard list display karega -->
+
+  </div>
+
+  <script src="js/script.js"></script> <!-- External JavaScript file ko link karta hai -->
+</body>
+</html>

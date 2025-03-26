@@ -1,0 +1,115 @@
+body {
+  font-family: Arial, sans-serif;  
+  /*  Pura page ka font Arial ya sans-serif hoga */
+
+  background-color: #cf9435;  
+  /*  Page ka background color halka greyish hoga */
+
+  text-align: center;  
+  /*  Sare text center aligned honge */
+
+  margin-top: 50px;  
+  /*  Body ke upar 50px ka margin hoga (upar se gap milega) */
+}
+
+.container {
+  width: 50%;  
+  /* Container ka width 50% hoga (page ka aadha) */
+  
+  margin: 0 auto;  
+  /*  Center align karega (left aur right margin auto) */
+  margin-top: 200px;
+
+  background-color: #48a75b;  
+  /*  Container ka background white hoga */
+
+  padding: 20px;  
+  /* Andar ka spacing 20px hoga */
+
+  border-radius: 12px;  
+  /*  Container ke edges rounded honge (12px radius) */
+
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  
+  /*  Halki si shadow add karega container ke neeche */
+}
+
+h1, h2 {
+  margin-bottom: 20px;  
+  /*  Heading ke neeche 20px ka gap hoga */
+}
+
+#game {
+  margin-bottom: 20px;  
+  /*  Game section ke neeche 20px ka gap hoga */
+}
+
+input, button {
+  padding: 10px;  
+  /*  Input field aur button ke andar 10px ka spacing hoga */
+
+  margin-top: 10px;  
+  /*  In dono ke upar 10px ka gap hoga */
+
+  border-radius: 5px;  
+  /*  Thoda rounded edges dene ke liye 5px ka radius diya hai */
+}
+
+input {
+  width: 60%;  
+  /*  Input field ka width 60% hoga */
+
+  border: 1px solid #ccc;  
+  /*  Border halka grey color ka hoga */
+}
+
+button {
+  background-color: #e11515;  
+  /*  Button ka background greenish hoga */
+
+  color: white;  
+  /*  Button ka text white hoga */
+
+  border: none;  
+  /*  Button ke border ko remove kar diya gaya hai */
+
+  cursor: pointer;  
+  /*  Mouse pointer button pe hover hone par pointer ban jayega */
+}
+
+button:hover {
+  background-color: #45a049;  
+  /*  Jab mouse button ke upar aayega to color thoda dark hoga */
+}
+
+#status {
+  margin-top: 20px;  
+  /*  Status message ke upar 20px ka gap hoga */
+
+  font-size: 18px;  
+  /*  Status message ka font size 18px hoga */
+}
+
+ul {
+  list-style-type: none;  
+  /*  List ke bullets (•) hata diye gaye hai */
+
+  padding: 0;  
+  /*  List ke andar ka default padding hata diya gaya hai */
+}
+
+li {
+  background-color: #f9f9f9;  
+  /*  List items ka background halka greyish hoga */
+
+  padding: 10px;  
+  /*  List items ke andar ka spacing 10px hoga */
+
+  margin-top: 5px;  
+  /*  List items ke upar 5px ka gap hoga */
+
+  border: 1px solid #ddd;  
+  /*  Border halka greyish hoga */
+
+  border-radius: 5px;  
+  /*  List items ke edges rounded honge (5px radius) */
+}
