@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Firebase Form</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body { font-family: sans-serif; padding: 2rem; background: #f4f4f4; }
+    form { background: white; padding: 1rem; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    input, textarea { display: block; margin-bottom: 1rem; width: 100%; padding: 0.5rem; }
+  </style>
+</head>
+<body>
+  <h1>Submit Your Message</h1>
+  <form id="contact-form">
+    <input type="text" id="name" placeholder="Your name" required />
+    <textarea id="message" placeholder="Your message" required></textarea>
+    <button type="submit">Submit</button>
+  </form>
+
+  <!-- Firebase SDKs -->
+  <script type="module">
+    // Import Firebase modules
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-app.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.9.0/firebase-firestore.js";
+
+    // Your Firebase configuration (replace with your actual values)
+    const firebaseConfig = {
+      apiKey: "AIzaSyB0xNU_hY20KeJTzDA-0FSJc17qewfN16s",
+      authDomain: "webform-e17e2.firebaseapp.com",
+      projectId: "webform-e17e2",
+      storageBucket: "webform-e17e2.firebasestorage.app",
+      messagingSenderId: "853753455171",
+      appId: "1:853753455171:web:7035afe181be004df1eaf6",
+      measurementId: "G-K4R2C69KL7"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+
+    // Initialize Firestore
+    const db = getFirestore(app);
+
+    // Form submission handler
+    document.getElementById('contact-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('name').value;
+      const message = document.getElementById('message').value;
+
+      try {
+        // Add data to Firestore
+        await addDoc(collection(db, 'messages'), {
+          name,
+          message,
+          timestamp: new Date()
+        });
+
+        alert('Message submitted successfully!');
+        document.getElementById('contact-form').reset();
+      } catch (err) {
+        alert('Error: ' + err.message);
+      }
+    });
+  </script>
+</body>
+</html>
